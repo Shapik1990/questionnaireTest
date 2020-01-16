@@ -20,11 +20,8 @@ import javax.persistence.Version;
 public class Question {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Version
-    private Long version;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "questionnaire_id")
@@ -33,6 +30,6 @@ public class Question {
     @Column(name = "text")
     private String text;
 
-    @Column(name = "order")
+    @Column(name = "order", nullable = false)
     private Long order;
 }
