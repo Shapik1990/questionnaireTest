@@ -1,8 +1,6 @@
 package com.questionnaire.exception;
 
 import com.questionnaire.model.dto.ErrorDto;
-import com.questionnaire.model.dto.PageDto;
-import liquibase.pro.packaged.S;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

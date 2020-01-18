@@ -28,30 +28,25 @@ public class QuestionnaireController {
     private final QuestionnaireService service;
 
     @ApiOperation("list")
-    @PostMapping
-    @RequestMapping("/list")
+    @PostMapping("/list")
     public ResponseEntity<List<QuestionnaireRsDto>> getList(@Valid @RequestBody RequestDto rqDto) {
         return service.getList(rqDto);
     }
 
-
     @ApiOperation("create")
-    @PutMapping
-    @RequestMapping("/create")
+    @PutMapping("/create")
     public ResponseEntity<Boolean> create(@Valid @RequestBody QuestionnaireRqDto rqDto) {
         return service.create(rqDto);
     }
 
     @ApiOperation("edit")
-    @PostMapping
-    @RequestMapping("/edit")
+    @PostMapping("/edit")
     public ResponseEntity<QuestionnaireRsDto> edit(@Valid @RequestBody QuestionnaireRqDto rqDto) {
         return service.edit(rqDto);
     }
 
     @ApiOperation("delete")
-    @DeleteMapping
-    @RequestMapping("/delete")
+    @DeleteMapping("/delete")
     public ResponseEntity<Boolean> delete(@Valid @RequestParam Long id) {
         return service.delete(id);
     }
