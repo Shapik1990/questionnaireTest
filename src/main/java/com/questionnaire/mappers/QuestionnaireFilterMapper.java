@@ -19,8 +19,14 @@ public class QuestionnaireFilterMapper implements FilterMapper<Questionnaire> {
 
         switch (dto.getField()) {
             case ACTIVE:
-                return getSpecification(dto, dto.getValue().equals("true"));
+                if (dto.getValue().equals("true") || dto.getValue().equals("false")) {
+                    return getSpecification(dto, dto.getValue().equals("true"));
+                }
+                throw new FilterException("Некорректное значение поля active");
             case ID:
+                if (!dto.getValue().matches("-?\\d+(\\.\\d+)?")) {
+                    throw new FilterException("Некорректное значение поля id, не является целым числом");
+                }
                 return getSpecification(dto, Long.valueOf(dto.getValue()));
             case NAME:
                 return getSpecification(dto, dto.getValue());

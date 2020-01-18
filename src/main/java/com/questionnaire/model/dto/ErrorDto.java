@@ -1,12 +1,10 @@
 package com.questionnaire.model.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class ErrorDto {
     private String errorMessage;
-
-    public ErrorDto(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
 }

@@ -9,12 +9,12 @@ import com.questionnaire.model.dto.QuestionnaireRqDto;
 import com.questionnaire.model.dto.QuestionnaireRsDto;
 import com.questionnaire.model.dto.RequestDto;
 import com.questionnaire.mappers.QuestionnaireMapper;
+import com.questionnaire.model.dto.ResponseDto;
 import com.questionnaire.model.entity.Questionnaire;
 import com.questionnaire.repository.QuestionnaireRepository;
 import lombok.Data;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -34,11 +34,10 @@ public class QuestionnaireServiceImpl implements QuestionnaireService{
     private final SortMapper sortMapper;
     private final QuestionnaireFilterMapper filterMapper;
 
-
     private static final String MSG_NOT_FOUND = "Опросник с указанным id не найден";
 
     @Override
-    public ResponseEntity<List<QuestionnaireRsDto>> getList(RequestDto rqDto) {
+    public ResponseDto<List<QuestionnaireRsDto>> getList(RequestDto rqDto) {
 
         PageRequest pageRequest = pageRequestBuilder(rqDto);
 
@@ -49,7 +48,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService{
                                                     .stream()
                                                     .map(mapper::entityToDto)
                                                     .collect(Collectors.toList());
-        return ResponseEntity.ok(list);
+        return ResponseDto.successful(list);
 
     }
 
@@ -89,14 +88,13 @@ public class QuestionnaireServiceImpl implements QuestionnaireService{
     }
 
     @Override
-    public ResponseEntity create(QuestionnaireRqDto rqDto) {
+    public ResponseDto create(QuestionnaireRqDto rqDto) {
         Questionnaire questionnaire = mapper.dtoToEntity(rqDto);
-        repository.save(questionnaire);
-        return ResponseEntity.ok(true);
+        return ResponseDto.successful(mapper.entityToDto(repository.save(questionnaire)));
     }
 
     @Override
-    public ResponseEntity<QuestionnaireRsDto> edit(QuestionnaireRqDto rqDto) {
+    public ResponseDto<QuestionnaireRsDto> edit(QuestionnaireRqDto rqDto) {
         if (rqDto.getId() == null) {
             throw new QuestionnaireException("Не указан id");
         }
@@ -109,17 +107,19 @@ public class QuestionnaireServiceImpl implements QuestionnaireService{
                 .setActive(rqDto.isActive());
 
         questionnaire.getQuestions().clear();
-        questionnaire.getQuestions()
-                .addAll(questionMapper.questionDtoListToQuestionSet(questionnaire, rqDto));
-
+        if (rqDto.getQuestions() != null) {
+            questionnaire.getQuestions()
+                    .addAll(questionMapper.questionDtoListToQuestionSet(questionnaire, rqDto));
+        }
+        
         repository.flush();
-        return ResponseEntity.ok(mapper.entityToDto(questionnaire));
+        return ResponseDto.successful(mapper.entityToDto(questionnaire));
     }
 
     @Override
-    public ResponseEntity<Boolean> delete(Long id) {
+    public ResponseDto delete(Long id) {
         repository.findById(id).orElseThrow(() -> new QuestionnaireException(MSG_NOT_FOUND));
         repository.deleteById(id);
-        return ResponseEntity.ok(true);
+        return ResponseDto.successful();
     }
 }

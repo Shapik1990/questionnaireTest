@@ -3,6 +3,7 @@ package com.questionnaire.model.dto;
 import lombok.Data;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
 public class RequestDto {
     @Valid
     @NotNull
+    @NotEmpty
     private List<SortDto> sorts;
     @Valid
     private List<FilterDto> filters;

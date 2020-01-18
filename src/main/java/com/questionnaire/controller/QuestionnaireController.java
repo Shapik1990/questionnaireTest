@@ -3,11 +3,11 @@ package com.questionnaire.controller;
 import com.questionnaire.model.dto.QuestionnaireRqDto;
 import com.questionnaire.model.dto.QuestionnaireRsDto;
 import com.questionnaire.model.dto.RequestDto;
+import com.questionnaire.model.dto.ResponseDto;
 import com.questionnaire.service.QuestionnaireService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.Data;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -29,25 +29,25 @@ public class QuestionnaireController {
 
     @ApiOperation("list")
     @PostMapping("/list")
-    public ResponseEntity<List<QuestionnaireRsDto>> getList(@Valid @RequestBody RequestDto rqDto) {
+    public ResponseDto<List<QuestionnaireRsDto>> getList(@Valid @RequestBody RequestDto rqDto) {
         return service.getList(rqDto);
     }
 
     @ApiOperation("create")
     @PutMapping("/create")
-    public ResponseEntity<Boolean> create(@Valid @RequestBody QuestionnaireRqDto rqDto) {
+    public ResponseDto<QuestionnaireRsDto> create(@Valid @RequestBody QuestionnaireRqDto rqDto) {
         return service.create(rqDto);
     }
 
     @ApiOperation("edit")
     @PostMapping("/edit")
-    public ResponseEntity<QuestionnaireRsDto> edit(@Valid @RequestBody QuestionnaireRqDto rqDto) {
+    public ResponseDto<QuestionnaireRsDto> edit(@Valid @RequestBody QuestionnaireRqDto rqDto) {
         return service.edit(rqDto);
     }
 
     @ApiOperation("delete")
     @DeleteMapping("/delete")
-    public ResponseEntity<Boolean> delete(@Valid @RequestParam Long id) {
+    public ResponseDto delete(@Valid @RequestParam Long id) {
         return service.delete(id);
     }
 }
