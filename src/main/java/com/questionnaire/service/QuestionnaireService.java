@@ -1,19 +1,19 @@
 package com.questionnaire.service;
 
-import com.questionnaire.dto.QuestionnaireRqDto;
-import com.questionnaire.dto.QuestionnaireRsDto;
-import com.questionnaire.dto.RequestDto;
-import com.questionnaire.dto.SuccessResponse;
+import com.questionnaire.model.dto.QuestionnaireRqDto;
+import com.questionnaire.model.dto.QuestionnaireRsDto;
+import com.questionnaire.model.dto.RequestDto;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface QuestionnaireService {
 
-    SuccessResponse<List<QuestionnaireRqDto>> getList(RequestDto rqDto);
+    ResponseEntity<List<QuestionnaireRsDto>> getList(RequestDto rqDto);
 
-    SuccessResponse<Boolean> create(QuestionnaireRsDto rsDto);
+    ResponseEntity<Boolean> create(QuestionnaireRqDto rsDto);
 
-    SuccessResponse<QuestionnaireRqDto> edit(QuestionnaireRsDto rsDto);
+    ResponseEntity<QuestionnaireRsDto> edit(QuestionnaireRqDto rsDto);
 
-    SuccessResponse<Boolean> delete(Long id);
+    ResponseEntity<Boolean> delete(Long id);
 }

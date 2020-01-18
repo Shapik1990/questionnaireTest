@@ -8,6 +8,7 @@ databaseChangeLog:
             columns:
                 - column:
                     name: id
+                    autoIncrement: true
                     type: BIGSERIAL
                     constraints:
                         primaryKey: true
@@ -18,10 +19,10 @@ databaseChangeLog:
                         nullable: false
                 - column:
                       name: start_date
-                      type: DATE
+                      type: TIMESTAMP
                 - column:
                     name: end_date
-                    type: DATE
+                    type: TIMESTAMP
                 - column:
                     name: active
                     type: BOOLEAN
@@ -34,20 +35,31 @@ databaseChangeLog:
             columns:
                 - column:
                     name: id
+                    autoIncrement: true
                     type: BIGSERIAL
                     constraints:
                         primaryKey: true
                 - column:
                     name: questionnaire_id
                     type: BIGINT
-                    constraints:
-                        foreignKeyName: fk_question_questionnqire
-                        references: questionnaire(id)
                 - column:
                     name: text
                     type: TEXT
                 - column:
-                    name: order
+                    name: order_question
                     type: BIGINT
                     constraints:
                         nullable: false
+    - changeSet:
+          id: create_constraint_fk
+          author: shaposhnikov
+          changes:
+              - addForeignKeyConstraint:
+                    baseColumnNames: questionnaire_id
+                    baseTableName: question
+                    constraintName: fk_question_questionnqire
+                    onDelete: CASCADE
+                    onUpdate: CASCADE
+                    referencedColumnNames: id
+                    referencedTableName: questionnaire
+                    validate: true

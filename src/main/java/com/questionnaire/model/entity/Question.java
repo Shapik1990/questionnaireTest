@@ -1,6 +1,9 @@
-package com.questionnaire.model;
+package com.questionnaire.model.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,11 +15,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Version;
 
 @Data
 @Entity
 @Table(name = "question")
+@Accessors(chain = true)
 public class Question {
 
     @Id
@@ -24,12 +27,13 @@ public class Question {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "questionnaire_id")
+    @JoinColumn(name = "questionnaire_id", nullable = false)
     private Questionnaire questionnaire;
 
     @Column(name = "text")
     private String text;
 
-    @Column(name = "order", nullable = false)
+    @Column(name = "order_question", nullable = false)
     private Long order;
+
 }
