@@ -13,18 +13,25 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.util.Optional;
 
-
 @RestControllerAdvice
 public class ExceptionsHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        return ResponseEntity.of(Optional.of(ex.getMessage()));
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < ex.getBindingResult().getAllErrors().size(); i++) {
+            sb.append(" " + ex.getBindingResult().getAllErrors().get(i).getDefaultMessage());
+            sb.append(" ");
+            sb.append(ex.getBindingResult().getFieldErrors().get(i).getField() + ";");
+
+        }
+        return ResponseEntity.of(Optional.of(ResponseDto.error("Ошибка валидации :" + sb.toString())));
     }
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        return ResponseEntity.of(Optional.of(ex.getMessage()));
+        return ResponseEntity.of(Optional.of(ResponseDto.error(ex.getMessage())));
     }
 
     @ExceptionHandler(QuestionnaireException.class)
