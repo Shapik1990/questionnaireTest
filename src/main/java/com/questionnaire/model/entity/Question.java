@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -28,10 +29,10 @@ public class Question {
     @JoinColumn(name = "questionnaire_id", nullable = false)
     private Questionnaire questionnaire;
 
+    @Lob
     @Column(name = "text")
     private String text;
 
     @Column(name = "order_question", nullable = false)
     private Long order;
-
 }

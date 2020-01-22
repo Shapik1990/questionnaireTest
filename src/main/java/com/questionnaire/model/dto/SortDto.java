@@ -2,11 +2,13 @@ package com.questionnaire.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotNull;
 
 
 @Data
+@Accessors(chain = true)
 public class SortDto {
 
     @NotNull

@@ -2,10 +2,12 @@ package com.questionnaire.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotNull;
 
 @Data
+@Accessors(chain = true)
 public class FilterDto {
     @NotNull
     private Field field;

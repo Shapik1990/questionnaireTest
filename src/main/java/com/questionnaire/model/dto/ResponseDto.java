@@ -36,7 +36,7 @@ public class ResponseDto<T> implements Serializable {
         return new ResponseDto(Status.ERROR, errorMessage);
     }
 
-    private enum Status{
+    public enum Status{
         SUCCESS,
         ERROR;
     }

@@ -1,0 +1,7 @@
+INSERT INTO Questionnaire (name, start_date, end_date, active) VALUES ('Q1', now(), now(), false)
+INSERT INTO Questionnaire (name, start_date, end_date, active) VALUES ('Q2', now(), now(), false)
+INSERT INTO Questionnaire (name, start_date, end_date, active) VALUES ('QList', now(), now(), false)
+INSERT INTO Questionnaire (name, start_date, end_date, active) VALUES ('QList', now(), now(), true)
+INSERT INTO Question (questionnaire_id, text, order_question) VALUES (1, 'Question1', 1)
+INSERT INTO Question (questionnaire_id, text, order_question) VALUES (2, 'Question1', 1)
+INSERT INTO Question (questionnaire_id, text, order_question) VALUES (2, 'Question1', 2)
